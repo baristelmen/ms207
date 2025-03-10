@@ -41,7 +41,7 @@ This repository provides a Docker Compose setup for running a JupyterLab environ
 
 - **Jupyter Lab**: Jupyter Lab is a powerful web-based interactive development environment for Python and other programming languages. It comes pre-configured with essential libraries and tools for data analysis, machine learning, and more.
 
-- **KASM Workspace**: KASM allows creating custom container images with VNC support for remote desktop access. To build a custom image, use a base image like kasmweb/ubuntu-focal-core and install a window manager (e.g., Openbox) along with x11vnc and novnc. Configure x11vnc to start on container launch and expose the required ports. A proper kasm_user_setup script ensures user settings persist. That kind of image will allow you to use fully fledged desktop without using VirtualBox variants.
+- **KASM Workspace**: KASM allows the creation of custom container images with VNC support for remote desktop access. To build a custom image, use a base image like kasmweb/ubuntu-focal-core and install a window manager (e.g., Openbox) along with x11vnc and novnc. Configure x11vnc to start on container launch and expose the required ports. A proper kasm_user_setup script ensures user settings persist. That kind of image will allow you to use a fully fledged desktop without using VirtualBox variants.
 
 - **Docker Compose**: Docker Compose simplifies the management of multi-container applications. With just a few commands, you can spin up your Jupyter Lab and MFront containers and start working on your projects.
 
@@ -60,7 +60,7 @@ This repo uses Docker to run its services contrary to classical VMs. Ensure your
 - A network connection
 
 **Windows:**
-- Windows 10 64-bit: Home, Pro, or Enterprise edition.
+- Windows 10 64-bit: Home, Pro, or Enterprise Edition.
 - Virtualization must be enabled in BIOS/UEFI settings.
 - Hyper-V must be disabled if enabled.
 - Docker Desktop for Windows requires Microsoft Hyper-V.
@@ -72,11 +72,11 @@ This repo uses Docker to run its services contrary to classical VMs. Ensure your
 - At least 4GB of RAM.
 - A network connection.
 
-Docker supports multiple Linux distros at its current stage and provides .deb and .rpm packages. To proceed with installation process, follow the link below for official instructions.
+Docker supports multiple Linux distros at its current stage and provides .deb and .rpm packages. To proceed with the installation process, follow the link below for official instructions.
 
 https://docs.docker.com/engine/install/
 
-This repo uses docker-compose plugin. Normally, it should be installed via standard docker installation. If not, refer to Docker documentation for proper installation instructions.
+This repo uses a docker-compose plugin. Normally, it should be installed via standard docker installation. If not, refer to Docker documentation for proper installation instructions.
 
 ## Using this repo
 
@@ -96,16 +96,17 @@ Once you have the source code, follow the steps below (Identical for each OS):
 
 1. Unzip the folder on your computer 
 2. Open you favorite terminal on your preferred OS and navigate to the unzipped folder
-3. An environment file (.env) is provided in this repository. This file can be either modified or leave as it is.
+3. An environment file (.env) is provided in this repository. This file can be either modified or left as it is.
 4. At the source code folder, execute the following command
    ```shell
    docker compose up -d
-5. This command will download the appropriate image, based on your CPU architechture, on your local machine. The download could take some time. So make sure that you have enough coffee.
-6. The jupyter lab is already installed on your computer and mildly configured. To access to your jupyter lab interface, you have to be in the workspace image (https://localhost:6901 or https://127.0.0.1:6901) and you can launch it via the browser inside the image.
+5. This command will download the appropriate image, based on your CPU architecture, on your local machine. The download could take some time. So make sure that you have enough coffee.
+6. To access the interface, open up your favorite browser and tap https://localhost:6901 or https://127.0.0.1:6901. This will allow you to access the desktop environment
+7. The Jupyter lab is installed and mildly configured on your computer. To access your Jupyter lab interface, you have to be in the workspace image (https://localhost:6901 or https://127.0.0.1:6901) and you can launch it via the browser inside the image.
    ```shell
    http://localhost:8888/lab
-7. There is no password associated with jupyter lab because it runs inside the container. 
-8. The data stored in the docker images can be accessed from your computer via data folder given in this repository. Interactive sharing folder definition is pre-configured in **docker-compose.yaml** file. You can always access to your data from this folder including your simulations results or your custom python codes. 
+8. There is no password associated with Jupyter Lab because it runs inside the container. 
+9. The data stored in the docker images can be accessed from your computer via the data folder given in this repository. The interactive sharing folder definition is pre-configured in **docker-compose.yaml** file. You can always access to your data from this folder including your simulation results or your custom Python codes. 
 
 ## Getting Help
 
