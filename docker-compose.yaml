@@ -1,0 +1,14 @@
+## Maintainer: Baris Telmen
+
+services:
+  ms207:
+    image: baristelmen/ms207:1.0.0
+    container_name: ms207
+    hostname: ms207
+    restart: unless-stopped
+    ports:
+      - 6901:6901
+    environment:
+      - VNC_PW=ms207
+    volumes:
+      - ./data_files:/home/kasm-user/share
