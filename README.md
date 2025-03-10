@@ -1,14 +1,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/baristelmen/MS207">
-    <img src="images/logo.png" alt="Logo" width="80" height="80" />
-  </a>
-
-  <h3 align="center">MS201 - Travaux pratiques (TP) #5</h3>
+  
+  <h3 align="center">MS207 - Travaux dirigés (TD) #5</h3>
 
   <p align="center">
-    Modeling behavior of materials using python
+    Finite element simulation with CAST3M and Fenicsx/Dolfinx
     <br />
     <a href="https://github.com/baristelmen/MS207/archive/refs/heads/main.zip">Download</a>
     ·
