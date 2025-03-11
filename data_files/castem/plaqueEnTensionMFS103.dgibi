@@ -1,0 +1,132 @@
+* Probleme d'une fissure en tension dans une plaque 
+*soumise a un deplacement udon*ey sur le bord superieur
+opti dime 2 mode plan cont;
+opti elem tri3;
+*opti elem tri6;
+*
+* 2022: commande obsolete opti epsilon lineaire obsolete
+* par defaut operateur epsi calcul la partie sym du grad du deplacement
+*opti epsilon lineaire; 
+************************************************************************
+*----------- DONNEES-------------
+* Materiau  
+YOU=1.; 
+v=0.4;
+* Chargement 
+udon= 1.; 
+* Geometrie (mm)
+*a0= 20.; 
+*l0= 100.;
+*h0=450./2.;
+
+a0= 20./100.; 
+l0= 1.;
+h0=4.5/2.;
+
+*finesse
+f0=1.;
+f0=0.5;
+
+de1=f0*0.01*a0; 
+de2=f0*0.5*a0;
+de3=f0*a0;
+*de1=0.005*a0; 
+*de2=0.5*a0;
+
+dens de1;
+p1=a0 0.;
+dens de2;
+p0=0. 0.;
+p2=l0 0.;
+dens de3;
+p3=l0 h0;
+p4=0. h0;
+
+d01 = droit p0 p1 ;
+d12 = droit p1 p2 ;
+d23 = droit p2 p3 ;
+d34 = droit p3 p4 ;
+d40 = droit p4 p0 ;
+
+cont = (d01 et d12 et d23 et d34 et d40);
+trac cont;
+
+sur = surf cont;
+trac sur;
+
+***********************************************************************
+*----------- DEFINITION DE MODELE ET DU MATERIAU-------------
+* 
+MOD = MODE SUR MECANIQUE ELASTIQUE ISOTROPE ;
+MAT = MATE MOD YOUNG YOU NU v;
+*----------- DEFINITION DE CONDITIONS AUX LIMITES-----------
+*conditions de symetrie
+CL1 = BLOQ uy d12 ;
+*deplact selon ey donne sur bord sup
+CL2 = BLOQ UY d34 ;
+CL3 = BLOQ UX d34 ;
+CHA = DEPI CL2 (udon/2.);
+CLT = CL1 ET CL2 et CL3 ;
+*----------- DEFINITION DU CHARGEMENT --------------
+
+*----------- CALCUL DE LA SOLUTION ----------------
+* calcul de la matrice de rigidité
+rig = rigi mod mat ;
+
+* calcul du deplacement solution
+uu = reso (rig et clt) cha ;
+
+***********************************************************************
+*----------- POST-TRAITEMENT ----------------
+* Determination de la force imposee 
+r = REAC CL2 uu;
+rtot = RESULT r;
+list rtot;
+R0 = EXTR rtot 'FY' p3;
+
+mess 'a=' a0;
+mess 'R0=' R0;
+* trace de la deformee
+titre 'deformee' ;
+def0 = defo sur uu 0. bleu ;
+def1 = defo sur uu  roug ;
+trac (def0 et def1);
+* contraintes 
+sig1 = sigma mod mat uu ;
+trac sig1 mod;
+*----CALCUL DU FACTEUR D'INTENSITE DE CONTRAINTES----;
+*----APPEL DE LA PROCEDURE SIF  ---------------------;
+* Determination de KI par interpolation sur champ de deplacement
+SIFTAB = TABL;
+SIFTAB.'MODMIXTE' = FAUX;
+SIFTAB.'LEVRE_1' = d01;
+SIFTAB.'FRTFISS' = p1;
+SIF SIFTAB MAT UU;
+K1INT = SIFTAB.K1;
+*K2INT = SIFTAB.K2;
+*----APPEL DE LA PROCEDURE G_THETA  ---------------------;
+GTAB = TABL;
+GTAB . 'OBJECTIF' = MOT 'J';
+GTAB . 'FRONT_FISSURE'  = p1 ;
+GTAB . 'LEVRE_SUPERIEURE' = d01;
+GTAB . 'COUCHE' = 6;
+GTAB . 'SOLUTION_RESO'  = uu;
+GTAB . 'CARACTERISTIQUES' = mat;
+GTAB . 'MODELE' = mod;
+GTAB . 'CHARGEMENTS_MECANIQUES' = cha ;
+G_THETA GTAB;
+G_cal = GTAB . 'RESULTATS'  ;
+* formule d'Irwin en DP
+*K_G = (you * G_cal/(1 - (v**2)))**0.5;
+* formule d'Irwin en CP
+K_G = (you * G_cal)**0.5;
+
+mess 'K1 calcule par Interpolation :'  K1INT;
+mess 'K2 calcule par Interpolation :'  K2INT;
+mess '---K calcule par G et Irwin :'  K_G ;
+
+
+
+opti donn 5;
+
+
