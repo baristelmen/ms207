@@ -9,6 +9,6 @@ services:
     ports:
       - 6901:6901
     environment:
-      - VNC_PW=ms207
+      - VNC_PW=ms207ms207
     volumes:
       - ./data_files:/home/kasm-user/share
