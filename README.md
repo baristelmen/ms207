@@ -102,11 +102,12 @@ Once you have the source code, follow the steps below (Identical for each OS):
    docker compose up -d
 5. This command will download the appropriate image, based on your CPU architecture, on your local machine. The download could take some time. So make sure that you have enough coffee.
 6. To access the interface, open up your favorite browser and tap https://localhost:6901 or https://127.0.0.1:6901. This will allow you to access the desktop environment
-7. The Jupyter lab is installed and mildly configured on your computer. To access your Jupyter lab interface, you have to be in the workspace image (https://localhost:6901 or https://127.0.0.1:6901) and you can launch it via the browser inside the image.
+7. The username is **kasm_user** and the password is defined in docker-compose.yaml (you can change it). By default, the password is **ms207ms207**.
+8. The Jupyter lab is installed and mildly configured on your computer. To access your Jupyter lab interface, you have to be in the workspace image (https://localhost:6901 or https://127.0.0.1:6901) and you can launch it via the browser inside the image.
    ```shell
    http://localhost:8888/lab
-8. There is no password associated with Jupyter Lab because it runs inside the container. 
-9. The data stored in the docker images can be accessed from your computer via the data folder given in this repository. The interactive sharing folder definition is pre-configured in **docker-compose.yaml** file. You can always access to your data from this folder including your simulation results or your custom Python codes. 
+9. There is no password associated with Jupyter Lab because it runs inside the container. 
+10. The data stored in the docker images can be accessed from your computer via the data folder given in this repository. The interactive sharing folder definition is pre-configured in **docker-compose.yaml** file. You can always access to your data from this folder including your simulation results or your custom Python codes. 
 
 ## Getting Help
 
