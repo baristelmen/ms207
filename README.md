@@ -100,6 +100,9 @@ Once you have the source code, follow the steps below (Identical for each OS):
 4. At the source code folder, execute the following command
    ```shell
    docker compose up -d
+   ```
+    - On Windows and macOS, Docker must be launched for the command to work.
+    - On Linux, the docker service must be started (or enabled) using the command `systemctl start docker.service`.
 5. This command will download the appropriate image, based on your CPU architecture, on your local machine. The download could take some time. So make sure that you have enough coffee.
 6. To access the interface, open up your favorite browser and tap https://localhost:6901 or https://127.0.0.1:6901. This will allow you to access the desktop environment
 7. The username is **kasm_user** and the password is defined in docker-compose.yaml (you can change it). By default, the password is **ms207ms207**.
